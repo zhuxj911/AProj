@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AProj" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/purple_700</item>
+        <!--        设置状态栏透明 不起作用-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+    </style>
+</resources>
