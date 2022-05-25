@@ -19,11 +19,11 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 /**
  * 统一标题栏
- *
+ * @param modifier
  * @param content 标题内容
  */
 @Composable
-fun TopAppBar(content: @Composable () -> Unit) {
+fun TopAppBar(modifier: Modifier= Modifier, content: @Composable () -> Unit) {
 
     //解决颜色不一致的问题
     val systemUiController = rememberSystemUiController()
@@ -51,7 +51,8 @@ fun TopAppBar(content: @Composable () -> Unit) {
             )
             .fillMaxWidth()
             .height(appBarHeight + statusBarHeightDp)
-            .padding(top = statusBarHeightDp),
+            .padding(top = statusBarHeightDp)
+            .then(modifier),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
