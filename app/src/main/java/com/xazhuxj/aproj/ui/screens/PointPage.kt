@@ -2,7 +2,6 @@ package com.xazhuxj.aproj.ui.screens
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -99,6 +98,50 @@ fun PointPage(vm: MainViewModel = viewModel() ) {
                         modifier = Modifier.padding(vertical = 8 .dp),
                     fontSize = 14.sp)
                 }
+            }
+        }
+
+//        TabRow(selectedTabIndex = vm.currentTypeIndex,
+//            backgroundColor=Color.Transparent,
+//            contentColor = Color(0xFF149EE7)
+//        ){
+//            vm.types.forEachIndexed{ index, item ->
+//                Tab(selected = vm.currentTypeIndex == index, onClick ={
+//                    vm.updateTypeIndex(index)
+//                },
+//                selectedContentColor = Color(0xFF149EE7),
+//                unselectedContentColor = Color(0xFF666666)
+//                ){
+//                  Text(
+//                      text = item,
+//                      modifier = Modifier.padding(vertical = 8 .dp),
+//                      fontSize = 16.sp)
+//              }
+//            }
+//        }
+
+        TabRow(selectedTabIndex = vm.currentTypeIndex,
+            backgroundColor=Color.Transparent,
+            contentColor = Color(0xFF149EE7),
+            indicator = {},
+            divider ={}
+        ){
+            vm.types.forEachIndexed{ index, dataType ->
+                LeadingIconTab(selected = vm.currentTypeIndex == index, onClick ={
+                    vm.updateTypeIndex(index)
+                },
+                    selectedContentColor = Color(0xFF149EE7),
+                    unselectedContentColor = Color(0xFF666666),
+                    icon = {
+                        Icon(imageVector = dataType.icon, contentDescription = null)
+                    },
+                    text = {
+                        Text(
+                            text = dataType.title,
+                            modifier = Modifier.padding(vertical = 8 .dp),
+                            fontSize = 16.sp)
+                    }
+                )
             }
         }
 
