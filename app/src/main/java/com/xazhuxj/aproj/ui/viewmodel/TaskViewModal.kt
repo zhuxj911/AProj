@@ -36,4 +36,25 @@ class TaskViewModal : ViewModel() {
 
     var weeks = listOf("02.05", "02.06", "02.07", "02.08", "02.09", "02.10", "今日")
         private set
+
+    //今日积分
+    private var todayPoint = 10
+
+    //今日提醒文字
+    var tips by mutableStateOf("今日获得0积分，快去完成下面任务吧")
+        private set
+
+    fun updateTips(){
+        tips = when (todayPoint) {
+            0 -> {
+                "今日获得0积分，快去完成下面任务吧"
+            }
+            in 1 .. 14 -> {
+                "今日获得${todayPoint}积分"
+            }
+            else -> {
+                "今日获得${todayPoint}积分, 已经完成任务"
+            }
+        }
+    }
 }

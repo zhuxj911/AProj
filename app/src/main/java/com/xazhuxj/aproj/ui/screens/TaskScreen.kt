@@ -37,6 +37,7 @@ fun TaskScreen(taskVM: TaskViewModal = viewModel()) {
     //当学员积分改变时没重新计算学年积分
     LaunchedEffect(taskVM.pointOfYear) {
         taskVM.updatePointPercent()
+        taskVM.updateTips()
     }
 
     Column(
@@ -158,31 +159,47 @@ fun TaskScreen(taskVM: TaskViewModal = viewModel()) {
                     }
                 }
             }
-            
+
             //学习明细
-            item{
-                Column(modifier = Modifier
-                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                    .fillMaxWidth()
-                    .background(Color.White)
-                    .padding(top = 8.dp)
-                    .padding(horizontal = 8.dp, vertical = 8.dp)
+            item {
+                Column(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .padding(top = 8.dp)
+                        .padding(horizontal = 8.dp, vertical = 8.dp)
                 ) {
-                    Text(text = "学习明细", fontSize = 16.sp,color=Color(0xFF333333))
-                    Text(text = "最近一周获得积分情况", fontSize = 14.sp,color=Color(0xFF999999))
+                    Text(text = "学习明细", fontSize = 16.sp, color = Color(0xFF333333))
+                    Text(text = "最近一周获得积分情况", fontSize = 14.sp, color = Color(0xFF999999))
 
                     //积分情况的折线图
                     ChartView(taskVM.pointsOfWeek, modifier = Modifier.padding(vertical = 8.dp))
 
+                    //日期
                     //下面的这个应该组织到 ChartView 这个里面吧？？？
                     Row() {
-                        taskVM.weeks.forEach{
-                            Text(text = it, fontSize=12.sp, color=Color(0xFF999999),
-                                textAlign=TextAlign.Center,
+                        taskVM.weeks.forEach {
+                            Text(
+                                text = it, fontSize = 12.sp, color = Color(0xFF999999),
+                                textAlign = TextAlign.Center,
                                 modifier = Modifier.weight(1f)
                             )
                         }
                     }
+
+                    //今日任务提醒
+                    Text(
+                        text = taskVM.tips,
+                        color = Color(0xFF149EE7),
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(Color(0x33149EE7))
+                            .padding(8.dp)
+                            .fillMaxWidth()
+                    )
                 }
 
 
