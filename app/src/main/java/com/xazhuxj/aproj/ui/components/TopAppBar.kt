@@ -17,6 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+//标题栏高度
+val appBarHeight = 56.dp
+
 /**
  * 统一标题栏
  * @param modifier
@@ -31,8 +34,7 @@ fun TopAppBar(modifier: Modifier= Modifier, content: @Composable () -> Unit) {
         systemUiController.setStatusBarColor(Color.Transparent)
     }
 
-    //标题栏高度
-    val appBarHeight = 56.dp
+
 
     //将系统状态栏高度px 转换 为dp
     val statusBarHeightDp = with(LocalDensity.current){

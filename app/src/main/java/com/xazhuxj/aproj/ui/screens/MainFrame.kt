@@ -1,6 +1,8 @@
 package com.xazhuxj.aproj.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -17,9 +19,9 @@ import com.xazhuxj.aproj.model.entity.NavigationItem
 fun MainFrame() {
 
     val navigationItems = listOf(
-        NavigationItem(title = "测量点", icon = Icons.Filled.Home),
+        NavigationItem(title = "学习", icon = Icons.Filled.Home),
         NavigationItem(title = "图", icon = Icons.Filled.Place),
-        NavigationItem(title = "位置", icon = Icons.Filled.Share),
+        NavigationItem(title = "任务", icon = Icons.Filled.Share),
     )
 
     var currentNavigationIndex by remember {
@@ -52,13 +54,14 @@ fun MainFrame() {
                 }
             }
         }) {
-//        Text(text="current navigation item: $currentNavigationIndex")
-            when (currentNavigationIndex) {
-                0 -> PointPage()
-                1 -> FigurePage()
-                2 -> MapPage()
+            Box(modifier = Modifier.padding(it)){
+                //        Text(text="current navigation item: $currentNavigationIndex")
+                when (currentNavigationIndex) {
+                    0 -> StudyScreen()
+                    1 -> FigurePage()
+                    2 -> TaskScreen()
+                }
             }
-
         }
     }
 }

@@ -22,13 +22,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.xazhuxj.aproj.model.APoint
-import com.xazhuxj.aproj.model.SampleData
+import com.xazhuxj.aproj.ui.components.*
 import com.xazhuxj.aproj.ui.components.TopAppBar
 import com.xazhuxj.aproj.ui.theme.AProjTheme
+import com.xazhuxj.aproj.ui.viewmodel.ArticleViewModel
 import com.xazhuxj.aproj.ui.viewmodel.MainViewModel
+import com.xazhuxj.aproj.ui.viewmodel.VideoViewModel
+
 
 @Composable
-fun PointPage(vm: MainViewModel = viewModel() ) {
+fun StudyScreen(vm: MainViewModel = viewModel(),
+                vmArticle: ArticleViewModel = viewModel(),
+                videoViewModel: VideoViewModel= viewModel()
+) {
     Column(modifier = Modifier) {
         TopAppBar(modifier = Modifier.padding(horizontal = 8.dp)){
 
@@ -66,7 +72,7 @@ fun PointPage(vm: MainViewModel = viewModel() ) {
             Spacer(modifier = Modifier.width(8.dp))
 
             //学习进度
-            Text(text = "采集\n进度", fontSize = 10.sp, color = Color.White)
+            Text(text = "学习\n进度", fontSize = 10.sp, color = Color.White)
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -145,7 +151,52 @@ fun PointPage(vm: MainViewModel = viewModel() ) {
             }
         }
 
-       ListPoints(SampleData.points)
+        //轮播图
+//        HorizontalPager(count = vm.swiperData.size,
+////            contentPadding = PaddingValues(16.dp)
+////        itemSpacing = 16.dp
+//        modifier = Modifier.padding(horizontal = 8.dp).
+//        clip(RoundedCornerShape(8.dp))
+//        ) { index ->
+//            AsyncImage(
+//                model = vm.swiperData[index].imageUrl,
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .aspectRatio(7 / 3f),
+//                contentScale = ContentScale.Crop
+//            )
+//
+//        }
+//        //将上面注释代码改为组件形式
+         //轮播图
+//        SwiperContent(vm)
+//
+//        //通知公告
+//        NotificationContent(vm)
+
+
+       //ListPoints(SampleData.points)
+
+        LazyColumn(){
+            //轮播图
+            item{ SwiperContent(vm)}
+
+            //通知公告
+            item{ NotificationContent(vm)}
+
+            if(vm.showArticleList){
+                //文章列表
+                items(vmArticle.list){ article ->
+                    ArticleItem(article)
+                }
+            }else{
+                //视频列表
+                items(videoViewModel.list){videoEntity ->
+                    VideoItem(videoEntity)
+                }
+            }
+        }
     }
 }
 
@@ -153,7 +204,7 @@ fun PointPage(vm: MainViewModel = viewModel() ) {
 @Composable
 fun PointPagePreview() {
     AProjTheme {
-        PointPage()
+        StudyScreen()
     }
 }
 
